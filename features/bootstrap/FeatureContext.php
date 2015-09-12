@@ -27,7 +27,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function thereIsAGistLocatedAt($uri)
     {
-        throw new PendingException();
+        $this->gist = Gist::fromUri($uri);
     }
 
     /**
@@ -35,7 +35,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iConvertTheGistToPDF()
     {
-        throw new PendingException();
+        $this->gist->convertToPdf();
     }
 
     /**
@@ -43,6 +43,8 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldCreateAndDownloadAPDFFile()
     {
-        throw new PendingException();
+        if (!file_exists('~/Downloads/' . $this->gist->fileName)) {
+            throw new Exception("File {$this->gist->fileName} was not found in ~/Downloads/");
+        }
     }
 }
