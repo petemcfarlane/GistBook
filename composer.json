@@ -6,6 +6,11 @@
     },
     "require-dev": {
         "behat/behat": "^3.0",
-        "phpspec/phpspec": "^2.3"
+        "phpspec/phpspec": "^2.3",
+        "bossa/phpspec2-expect": "^1.0"
+    },
+    "require": {
+        "dompdf/dompdf": "^0.6.1",
+        "guzzle/guzzle": "^3.9"
     }
 }

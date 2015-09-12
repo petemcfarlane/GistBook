@@ -2,10 +2,8 @@
 
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use GistBook\Gist;
+use GistBook\Pdf;
 
 /**
  * Defines application features from the specific context.
@@ -30,7 +28,7 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iConvertTheGistToPDF()
     {
-        $this->gist->convertToPdf();
+        Pdf::fromGist($this->gist);
     }
 
     /**
@@ -38,8 +36,13 @@ class FeatureContext implements Context, SnippetAcceptingContext
      */
     public function iShouldCreateAndDownloadAPDFFile()
     {
-        if (!file_exists('~/Downloads/' . $this->gist->fileName)) {
-            throw new Exception("File {$this->gist->fileName} was not found in ~/Downloads/");
+        foreach ($this->gist->files() as $file) {
+            $filename = rtrim($file['filename'], '.pdf') . '.pdf';
+            if (!file_exists($filename)) {
+                throw new Exception("File {$filename} was not found in " . getcwd());
+            }
+            // verified file exists, now clean up the file
+            unlink($filename);
         }
     }
 }
