@@ -5,6 +5,7 @@ use Behat\Behat\Context\SnippetAcceptingContext;
 use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use GistBook\Gist;
 
 /**
  * Defines application features from the specific context.
@@ -12,15 +13,9 @@ use Behat\Gherkin\Node\TableNode;
 class FeatureContext implements Context, SnippetAcceptingContext
 {
     /**
-     * Initializes context.
-     *
-     * Every scenario gets its own context instance.
-     * You can also pass arbitrary arguments to the
-     * context constructor through behat.yml.
+     * @var Gist
      */
-    public function __construct()
-    {
-    }
+    private $gist;
 
     /**
      * @Given /^there is a gist located at "([^"]*)"$/
